@@ -14,7 +14,7 @@ a {
 
 //<<flash-box<<
 .flash-box {
-  color: white;
+  color: $white;
   font-size: 1rem;
   font-weight: lighter;
   text-align: center;
@@ -25,7 +25,7 @@ a {
   }
 
   .alert {
-    background-color: #F35500;
+    background-color: $alert_orange;
   }
 }
 //>>flash-box>>
@@ -33,14 +33,14 @@ a {
 //<<chat-side<<
 .chat-side {
     width: 300px;
-    color: white;
+    color: $white;
     float: left;
     & a {
-      color: white;
+      color: $white;
     }
 
     .side-header {
-        background-color: #253141;
+        background-color: $side_blue_dark;
         height: 100px;
         display: flex;
         align-items: center;
@@ -67,7 +67,7 @@ a {
 
     .groups {
       height: calc(100vh - 100px);
-      background-color: #2f3e51;
+      background-color: $side_blue_light;
       padding: 20px 20px 0;
       overflow: scroll;
 
@@ -136,7 +136,7 @@ a {
       &__member-list {
           display: flex;
           font-size: 12px;
-          color: #999999;
+          color: $light_gray;
     
           li+li {
             margin-left: 0.3rem;
@@ -168,7 +168,7 @@ a {
         }
     
         &__date {
-          color: #999999;
+          color: $light_gray;
           font-size: 12px;
           margin-left: 10px;
         }
@@ -196,7 +196,7 @@ a {
       padding: 0 30px;
       margin-left: 15px;
       background-color: $light-blue;
-      color: white;
+      color: $white;
       cursor: pointer;
     }
 
