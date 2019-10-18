@@ -3,6 +3,9 @@ class GroupsController < ApplicationController
   def index
   end
 
+  def group_messages_path(group)
+  end
+
   def new
     @group = Group.new
     @group.users << current_user
