@@ -1,13 +1,13 @@
 .main-header
   .main-header__left-box
+    - current_user.groups.each do |group|
+      %h2.main-header__left-box__current-group{"data-group_id" => "xxxxx"}
+        = group.name
 
-    %h2.main-header__left-box__current-group{"data-group_id" => "xxxxx"}
-      現在見ているグループチャット
-
-    %ul.main-header__left-box__member-list
-      Member：
-      %li.main-header__left-box__member-list__member メンバーの名前
-      %li.main-header__left-box__member-list__member メンバーの名前
+      %ul.main-header__left-box__member-list
+        Member：
+        %li.main-header__left-box__member-list__member メンバーの名前
+        %li.main-header__left-box__member-list__member メンバーの名前
 
   = link_to("/groups/1/edit") do
     .main-header__edit-btn Edit
