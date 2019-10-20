@@ -1,4 +1,4 @@
-.message{"data-message_id": "xxxx"}
+.message
   .message__upper-info
     %p.message__upper-info__talker
       = message.user.name
@@ -10,16 +10,16 @@
       = message.content
   = image_tag message.image.url, class: 'lower-message__image' if message.image.present?
 
-.message{"data-message_id": "xxxx"}
-  .message__upper-info
-    %p.message__upper-info__talker メンバーの名前
-    %p.message__upper-info__date 2019/10/03(Thu) 19:05:09
-  %p.message__text
-  = image_tag 'http://d33f9sk7a6w0qk.cloudfront.net/ikinari_admin/wp-content/uploads/2014/08/topics01-11.png'
+-# .message{"data-message_id": "xxxx"}
+-#   .message__upper-info
+-#     %p.message__upper-info__talker メンバーの名前
+-#     %p.message__upper-info__date 2019/10/03(Thu) 19:05:09
+-#   %p.message__text
+-#   = image_tag 'http://d33f9sk7a6w0qk.cloudfront.net/ikinari_admin/wp-content/uploads/2014/08/topics01-11.png'
 
-.message{"data-message_id": "xxxx"}
-  .message__upper-info
-    %p.message__upper-info__talker メンバーの名前
-    %p.message__upper-info__date 2019/10/03(Thu) 19:05:09
-  %p.message__text メッセージと画像メッセージと画像メッセージと画像メッセージと画像メッセージと画像メッセージと画像
-  = image_tag 'http://d33f9sk7a6w0qk.cloudfront.net/ikinari_admin/wp-content/uploads/2014/08/topics01-11.png'
+-# .message{"data-message_id": "xxxx"}
+-#   .message__upper-info
+-#     %p.message__upper-info__talker メンバーの名前
+-#     %p.message__upper-info__date 2019/10/03(Thu) 19:05:09
+-#   %p.message__text メッセージと画像メッセージと画像メッセージと画像メッセージと画像メッセージと画像メッセージと画像
+-#   = image_tag 'http://d33f9sk7a6w0qk.cloudfront.net/ikinari_admin/wp-content/uploads/2014/08/topics01-11.png'
