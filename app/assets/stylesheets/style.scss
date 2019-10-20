@@ -235,4 +235,41 @@ a {
   }
 
 }
+
+#message_content {
+  height: 50px;
+  width: 100%;
+  padding: 0 40px 0 10px;
+  color: $message-text;
+  border: none;
+}
+
+// .chat-main .form form .input-box__image 
+label.form__mask__image {
+  font-size: 1.3rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+input#message_image {
+  display: none;
+}
+
+.form__mask{
+  position: relative;
+}
+
+input.form__submit {
+  width: 100px;
+  height: 50px;
+  padding: 0 30px;
+  margin-left: 15px;
+  background-color: $light-blue;
+  color: $white;
+  cursor: pointer;
+
+}
+
 //>>chat-main>>
