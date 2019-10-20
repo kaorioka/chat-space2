@@ -1,8 +1,14 @@
 .message{"data-message_id": "xxxx"}
   .message__upper-info
-    %p.message__upper-info__talker メンバーの名前
-    %p.message__upper-info__date 2019/10/03(Thu) 19:05:09
-  %p.message__text メッセージのみメッセージのみメッセージのみメッセージのみメッセージのみメッセージのみ
+    %p.message__upper-info__talker
+      = message.user.name
+    %p.message__upper-info__date
+      = message.created_at.strftime("%Y/%m/%d %H:%M")
+  %p.message__text
+  - if message.content.present?
+    %p.lower-message__content
+      = message.content
+  = image_tag message.image.url, class: 'lower-message__image' if message.image.present?
 
 .message{"data-message_id": "xxxx"}
   .message__upper-info
