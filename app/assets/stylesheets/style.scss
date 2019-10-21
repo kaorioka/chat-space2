@@ -186,12 +186,28 @@ a {
 
   }
 
+  #message_content {
+    height: 50px;
+    width: 100%;
+    padding: 0 40px 0 10px;
+    color: $message-text;
+    border: none;
+  }
+  
+  #message_image {
+    display: none;
+  }
+
   .form {
     height: 90px;
     padding: 20px 40px;
     background-color: #ddd;
 
-    .submit-btn {
+    & form {
+      display: flex;
+    }
+    
+    &__submit {
       width: 100px;
       height: 50px;
       padding: 0 30px;
@@ -201,38 +217,31 @@ a {
       cursor: pointer;
     }
 
-    & form {
-      display: flex;
+    &__mask{
+      position: relative;
 
-      .input-box {
-          position: relative;
-          width: 100%;
-
-          &__text {
-            height: 50px;
-            width: 100%;
-            padding: 0 40px 0 10px;
-            color: $message-text;
-            border-style: none;
-          }
-    
-          &__image {
-            font-size: 1.3rem;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-          }
-    
-          &__image__file {
-            display: none;
-          }
-    
+      &__image {
+        font-size: 1.3rem;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
       }
 
     }
 
   }
+  
+  .field_with_errors {
+    width: 100%;
+  }
 
 }
+
+
+
+
+
+
+
 //>>chat-main>>
