@@ -5,6 +5,8 @@
 
     %ul.main-header__left-box__member-list
       Member：
-      %li.main-header__left-box__member-list__member aaaa
+      - @group.users.each do |user|
+        %li.main-header__left-box__member-list__member
+          = user.name
   = link_to edit_group_path(@group.id) do
     .main-header__edit-btn Edit
