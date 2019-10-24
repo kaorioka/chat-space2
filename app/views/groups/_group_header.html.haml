@@ -5,8 +5,6 @@
 
     %ul.main-header__left-box__member-list
       Member：
-      %li.main-header__left-box__member-list__member メンバーの名前ああ
-      %li.main-header__left-box__member-list__member メンバーの名前
-
-  = link_to("/groups/#{@group.id}/edit") do
+      %li.main-header__left-box__member-list__member aaaa
+  = link_to edit_group_path(@group.id) do
     .main-header__edit-btn Edit
