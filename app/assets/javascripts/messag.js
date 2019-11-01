@@ -33,11 +33,10 @@ $(function () {
     })
       .done(function (data) {
         var html = buildHTML(data);
-        $('.messages').append(html);
+        $('.messages').append(html).animate();
         $('.form__message').val('');
-      })
-      .fail(function (content) {
-        alert('送信が失敗しました。');
+          .fail(function (content) {
+          alert('送信が失敗しました。');
+        })
       })
   })
-})
