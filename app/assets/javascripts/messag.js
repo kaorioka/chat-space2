@@ -7,22 +7,31 @@ $(function () {
                       ${message.user_name}
                       </p >
                       <p class="message__upper-info__date">
-                        ${message.created_at.strftime("%Y/%m/%d %H:%M")}
+                        ${message.created_at}
                       </p>
                     </div >
                       <p class="message__text"></p>
                       <p class="lower-message__content">
                         ${message.content}
-                      <%= image_tag ' ${image}' %>
                     </p>
+                    ${image}
                   </div > `
     return html;
   }
-  $('#new_message').on('submit', function (e) {
+
+  function send_scroll(list) {
+    var scrollHeight = $('#messages_area')[0].scrollHeight;
+    $(list).animate({ scrollTop: scrollHeight }, '1500');
+  }
+
+  $('#new_message').submit(function (e) {
     e.preventDefault();
-    console.log(this)
+    console.log(this);
     var formData = new FormData(this);
-    var url = $(this).attr('action')
+    console.log(formData);
+    var url = $(this).attr('action'); //request url
+    console.log(url);
+
     $.ajax({
       url: url,
       type: "POST",
@@ -33,10 +42,18 @@ $(function () {
     })
       .done(function (data) {
         var html = buildHTML(data);
-        $('.messages').append(html).animate();
-        $('.form__message').val('');
-          .fail(function (content) {
-          alert('送信が失敗しました。');
-        })
+        console.log(`\n\ndone_buildHTML(data)\n\n${buildHTML(data)}`);
+        var list = ".messages";
+        $(list).append(html);
+        send_scroll(list);
+        $('#new_message')[0].reset();
       })
+      .fail(function (data) {
+        alert('メッセージが空欄です。')
+      })
+      .always(function (data) {
+        $('.form__submit').prop('disabled', false);
+      });
+
   })
+})
