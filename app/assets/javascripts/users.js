@@ -1,10 +1,11 @@
 $(function () {
 
-  function html(name) {
+  function addUser(user) {
     const html = `<div class="chat-group-user clearfix">
-                  <p class="chat-group-user__name">${name}</p>
-                  </div>`;
-    $(search_result).append(html)
+    <p class="chat-group-user__name">${user.name}</p>
+    <div class="user-search-add chat-group-user__btn chat-group-user__btn--add" data-user-id="${user.id}" data-user-name="${user.name}">追加</div>
+  </div>`;
+    $(search_result).append(html);
   }
 
   function add_html(name, id) {
@@ -17,21 +18,26 @@ $(function () {
 
   let picup_users = [];
 
-  const search_result = $("#user-search-result");
+  const search_result = $('#user-search-result');
 
-  $(".js-chat-member").each(function (picup_users, id) {
-    picup_users.push(id.attr("id"))
+  $(".js-chat-member").each(function (picup_users, name) {
+    picup_users.push(name.attr('id'))
+    console.log(picup_users)
   });
 
 
 
-  $("#user-search-field").on("keyup", function () {
-    let input = $("#user-search-field").val();
+  $("#user-search-field").on("keyup", function (e) {
+    let input = $('#user-search-field').val();
+    e.preventDefault();
     console.log(input)
     $.ajax({
       type: "GET",
       url: "/users/search",
-      data: { keyword: input },
+      data: {
+        keyword: input,
+        user_ids: picup_users
+      },
       dataType: "json"
     })
       .done(function () {
