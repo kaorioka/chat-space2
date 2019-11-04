@@ -26,11 +26,8 @@ $(function () {
 
   $('#new_message').submit(function (e) {
     e.preventDefault();
-    console.log(this);
     var formData = new FormData(this);
-    console.log(formData);
     var url = $(this).attr('action'); //request url
-    console.log(url);
 
     $.ajax({
       url: url,
@@ -42,7 +39,6 @@ $(function () {
     })
       .done(function (data) {
         var html = buildHTML(data);
-        console.log(`\n\ndone_buildHTML(data)\n\n${buildHTML(data)}`);
         var list = ".messages";
         $(list).append(html);
         send_scroll(list);
