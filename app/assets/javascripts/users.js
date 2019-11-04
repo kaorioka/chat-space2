@@ -4,8 +4,9 @@ $(function () {
     const html = `<div class="chat-group-user clearfix">
                   <p class="chat-group-user__name">${name}</p>
                   </div>`;
-    $("#user-search-result").append(html)
+    $(search_result).append(html)
   }
+
   function add_html(name, id) {
     const add_html = `<div class='chat-group-user clearfix js-chat-member' id='chat-group-user-${id}'>
       <input name='group[user_ids][]' type='hidden' value='${id}'>
@@ -13,6 +14,16 @@ $(function () {
       <a class='user-search-remove chat-group-user__btn chat-group-user__btn--remove js-remove-btn'>追加</a></div>`;
     $(".js-add-user").append(add_html)
   }
+
+  let picup_users = [];
+
+  const search_result = $("#user-search-result");
+
+  $(".js-chat-member").each(function (picup_users, id) {
+    picup_users.push(id.attr("id"))
+  });
+
+
 
   $("#user-search-field").on("keyup", function () {
     let input = $("#user-search-field").val();
