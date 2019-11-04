@@ -62,6 +62,15 @@ $(function () {
       .fail(function () {
         alert("通信エラーです。ユーザーが表示できません。");
       });
+    $('#user-search-result').on("click", ".chat-group-user__btn--add", function () {
+      const user_name = $(this).attr("data-user-name"),
+        user_id = $(this).attr("data-user-id");
+      picup_users.push(user_name), $(this).parent().remove(), addDeleteUser(user_id, user_name)
+    }),
+      $(".js-add-user").on("click", ".js-remove-btn", function () {
+        const get_user_name = $(this).siblings("input").val();
+        picup_users = picup_users.filter(user_name => user_name != get_user_name), $(this).parent().remove()
+      })
   })
 
 });
