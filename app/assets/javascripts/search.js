@@ -4,6 +4,7 @@ $(function () {
 
     const seach_field = $('#user-search-field')
     const search_result = $('#user-search-result')
+    const add_user = $(".js-add-user")
 
 
     // search_result users template
@@ -27,6 +28,7 @@ $(function () {
         <p class="chat-group-user__name">${name}</p>
         <a class="user-search-remove chat-group-user__btn chat-group-user__btn--remove" data-user-id="${id}">削除</a>
       </div>`;
+      add_user.append(html);
     } // search_result users template//
 
     function resultNoUser() {
@@ -57,15 +59,13 @@ $(function () {
           if (users.length !== 0) {
             users.forEach(function (user) {
               outputResult(user);
+
             });
           } else if (input.length == 0) {
             return false;
           } else {
             resultNoUser();
           }
-
-
-
         })
         .fail(function (data) {
           alert("通信エラーです。ユーザーが表示できません。");
