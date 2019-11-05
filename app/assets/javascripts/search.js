@@ -90,7 +90,7 @@ $(function () {
       $(this).parent('.chat-group-user').remove(); //delete action
     });  //search_result.on('click')>>
 
-    add_user.on('click', '.chat-group-user__btn--remove', function (user) {
+    add_user.on('click', '.chat-group-user__btn--remove', function () {
       var id = $(this).data('userId');
       var name = $(this).data('userName');
       $(`#chat-group-user-${id}`).remove(); //delete action
