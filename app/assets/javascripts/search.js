@@ -32,15 +32,10 @@ $(function () {
     }
 
 
-
-
-    var picup_users = [];
-
     $("#user-search-field").on("keyup", function (user) {
       let input = $('#user-search-field').val();
       user.preventDefault();
       console.log(input);
-      console.log(picup_users);
       $.ajax({
         type: "GET",
         url: "/users/search",
@@ -70,15 +65,12 @@ $(function () {
         var name = $(this).data('userName');
         addDeleteUser(id, name);
         $(this).parent('.chat-group-user').remove(),
-          console.log(picup_users)
           ;
       }),
         $(".js-add-user").on("click", ".js-remove-btn", function () {
           const get_user_name = $(this).siblings("input").val();
-          picup_users = picup_users.filter(user_name => user_name != get_user_name),
-            $(this).parent().remove(),
+          $(this).parent().remove(),
             addUser(user);
-          console.log(picup_users);
         });
 
 
