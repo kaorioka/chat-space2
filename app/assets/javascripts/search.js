@@ -64,13 +64,11 @@ $(function () {
         var id = $(this).data('userId');
         var name = $(this).data('userName');
         addDeleteUser(id, name);
-        $(this).parent('.chat-group-user').remove(),
-          ;
+        $(this).parent('.chat-group-user').remove();
       }),
-        $(".js-add-user").on("click", ".js-remove-btn", function () {
-          const get_user_name = $(this).siblings("input").val();
-          $(this).parent().remove(),
-            addUser(user);
+        $("search_result").on("click", ".js-remove-btn", function () {
+          var id = $(this).data("userId");
+          $(`.chat-group-user-${id}`).remove();
         });
 
 
