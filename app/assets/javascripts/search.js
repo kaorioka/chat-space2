@@ -12,8 +12,8 @@ $(function () {
         </a>
       </div>
     `;
+      return html
     } // search_result users template //
-
 
     // search_result users template
     function addGroupUsers(id, name) {
@@ -42,9 +42,13 @@ $(function () {
       })
         .done(function () {
 
+          data.forEach(function (user) {
+            outputResult(user);
+          });
+
         })
         .fail(function (data) {
-          alert("検索に失敗しました");
+          alert("通信エラーです。ユーザーが表示できません。");
         });
     }); // Incremental search //
 
