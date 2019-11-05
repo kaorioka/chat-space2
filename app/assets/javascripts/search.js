@@ -23,14 +23,30 @@ $(function () {
     // search_result users template
     function addGroupUsers(id, name) {
       var html =
-        `<div class="chat-group-user clearfix" id=chat-group-user-${id}>
+        `<div class="chat-group-user clearfix" id="chat-group-user-${id}">
         <input type="hidden" name="group[user_ids][]" value="${id}">
         <p class="chat-group-user__name">${name}</p>
-        <a class="user-search-remove chat-group-user__btn chat-group-user__btn--remove" data-user-id="${id}">削除</a>
+        <a class='user-search-remove chat-group-user__btn chat-group-user__btn--remove js-remove-btn' data-user-id="${id}" data-user-name="${name}">削除</a>
       </div>`;
       add_user.append(html);
     } // search_result users template//
 
+    // return_result users template
+    function returnResult(id, name) {
+      var html =
+        `<div class="chat-group-user clearfix">
+        <p class="chat-group-user__name">
+          ${name}</p>
+        <a class="user-search-add chat-group-user__btn chat-group-user__btn--add" data-user-id="${id}" data-user-name="${name}">追加
+        </a>
+      </div>
+    `;
+      search_result.append(html);
+    } // return_result users template //
+
+
+
+    // result no user template
     function resultNoUser() {
       let html = `
         <div class="chat-group-user clearfix">
@@ -38,28 +54,26 @@ $(function () {
         </div>
       `;
       search_result.append(html);
-    }
+    } // result no user template //
 
     // Incremental search
-    seach_field.on('keyup', function () {
+    seach_field.on('keyup', function (user) {
 
       let input = seach_field.val();
+      user.preventDefault();
       console.log(input);
 
       $.ajax({
         type: 'GET',
         url: '/users/search', //request URL
-        date: { keyword: input },
+        data: { keyword: input },
         dataType: 'json'
       })
-        .done(function (users) {
-
+        .done(function (data) {
           search_result.empty();
-
-          if (users.length !== 0) {
-            users.forEach(function (user) {
+          if (data.length !== 0) {
+            data.forEach(function (user) {
               outputResult(user);
-
             });
           } else if (input.length == 0) {
             return false;
@@ -67,22 +81,25 @@ $(function () {
             resultNoUser();
           }
         })
-        .fail(function (data) {
+        .fail(function () {
           alert("通信エラーです。ユーザーが表示できません。");
         });
     }); // Incremental search //
 
     // addGroupUsers action
-    search_result.on('click', '.chat-group-user__btn--add', function (e) {
-      e.preventDefault();
+    search_result.on('click', '.chat-group-user__btn--add', function () {
       var id = $(this).data('userId');
       var name = $(this).data('userName');
       addGroupUsers(id, name); //add action
       $(this).parent('.chat-group-user').remove(); //delete action
     });  //search_result.on('click')>>
 
-
-
+    add_user.on('click', '.chat-group-user__btn--remove', function (user) {
+      var id = $(this).data('userId');
+      var name = $(this).data('userName');
+      $(`#chat-group-user-${id}`).remove();
+      returnResult(id, name);
+    });
 
 
   });
