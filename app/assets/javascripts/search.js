@@ -2,6 +2,10 @@ $(function () {
 
   $(document).on('turbolinks:load', function () {
 
+    const seach_field = $('#user-search-field')
+    const search_result = $('#user-search-result')
+
+
     // search_result users template
     function outputResult(user) {
       var html =
@@ -12,7 +16,7 @@ $(function () {
         </a>
       </div>
     `;
-      return html
+      search_result.append(html);
     } // search_result users template //
 
     // search_result users template
@@ -25,8 +29,14 @@ $(function () {
       </div>`;
     } // search_result users template//
 
-    const seach_field = $('#user-search-field')
-    const search_result = $('#user-search-result')
+    function resultNoUser() {
+      let html = `
+        <div class="chat-group-user clearfix">
+          <p class="chat-group-user__name">ユーザーが見つかりません</p>
+        </div>
+      `;
+      search_result.append(html);
+    }
 
     // Incremental search
     seach_field.on('keyup', function () {
@@ -40,11 +50,21 @@ $(function () {
         date: { keyword: input },
         dataType: 'json'
       })
-        .done(function () {
+        .done(function (users) {
 
-          data.forEach(function (user) {
-            outputResult(user);
-          });
+          search_result.empty();
+
+          if (users.length !== 0) {
+            users.forEach(function (user) {
+              outputResult(user);
+            });
+          } else if (input.length == 0) {
+            return false;
+          } else {
+            resultNoUser();
+          }
+
+
 
         })
         .fail(function (data) {
