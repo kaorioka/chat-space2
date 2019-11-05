@@ -6,7 +6,6 @@ $(function () {
     const search_result = $('#user-search-result')
     const add_user = $(".js-add-user")
 
-
     // search_result users template
     function outputResult(user) {
       var html =
@@ -44,8 +43,6 @@ $(function () {
       search_result.append(html);
     } // return_result users template //
 
-
-
     // result no user template
     function resultNoUser() {
       let html = `
@@ -61,7 +58,6 @@ $(function () {
 
       let input = seach_field.val();
       user.preventDefault();
-      console.log(input);
 
       $.ajax({
         type: 'GET',
@@ -97,10 +93,9 @@ $(function () {
     add_user.on('click', '.chat-group-user__btn--remove', function (user) {
       var id = $(this).data('userId');
       var name = $(this).data('userName');
-      $(`#chat-group-user-${id}`).remove();
-      returnResult(id, name);
+      $(`#chat-group-user-${id}`).remove(); //delete action
+      returnResult(id, name); //add action
     });
-
 
   });
 });
