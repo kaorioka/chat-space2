@@ -8,8 +8,13 @@ $(function () {
         url: '/users/search',
         date: { keyword: input },
         dateType: 'json'
-      });
+      })
+        .dane(function () {
 
+        })
+        .fail(function () {
+
+        });
 
     });
 
