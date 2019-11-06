@@ -1,7 +1,8 @@
 $(function () {
 
   function buildHTML(message) {
-    var data_id = "data_message-id=" + `${message.id}`;
+
+    var data_id = `data_message-id=${message.id}`;
     var image = message.image ? `<img src= ${message.image}>` : "";
     var upper_info = `<div class="message__upper-info">
                         <p class="message__upper-info__talker">
@@ -19,6 +20,7 @@ $(function () {
                       <p class="message__text">${message.content}</p>
                     ${image}
                   </div > `;
+      return html;
 
     } else if (message.content) {
 
@@ -26,6 +28,7 @@ $(function () {
                     ${upper_info}
                       <p class="message__text">${message.content}</p>
                   </div > `;
+      return html;
 
     } else if (message.image) {
 
@@ -33,22 +36,24 @@ $(function () {
                     ${upper_info}
                     ${image}
                   </div > `;
-
+      return html;
     };
-    return html;
-  }
+
+  };
+
+
+  var insertHTML = [];
 
   function send_scroll(list) {
     var scrollHeight = $('#messages_area')[0].scrollHeight;
-    $(list).animate({ scrollTop: scrollHeight }, '1500');
-  }
+    $(list).animate({ scrollTop: scrollHeight }, '5000000000');
+  };
 
   //submit event
   $('#new_message').submit(function (e) {
     e.preventDefault();
     var formData = new FormData(this);
     var url = $(this).attr('action'); //request url
-
     $.ajax({
       url: url,
       type: "POST",
@@ -62,20 +67,23 @@ $(function () {
         var list = ".messages";
         $(list).append(html);
         send_scroll(list);
-        $('#new_message')[0].reset();
+        $('#new_message')[0].reset(); //input reset
       })
-      .fail(function (data) {
+      .fail(function () {
         alert('メッセージが空欄です。')
       })
-      .always(function (data) {
-        $('.form__submit').prop('disabled', false);
+      .always(function () {
+        $('.form__submit').prop('disabled', false); //disabled cancel
       });
-  }); //submit event>>
+  }); //submit event//
 
+  //reload function
   var reloadMessages = function () {
 
     var current_page = window.location.pathname;
-    var last_message_id = last_message_id = $(".message:last").data("message_id") || 0;
+    var last_message_id = $(".message:last").data("data_message-id");
+    console.log(current_page);
+    console.log(last_message_id);
 
     $.ajax({
       url: current_page, //request url
@@ -83,21 +91,22 @@ $(function () {
       dataType: 'json',
       data: { id: last_message_id }
     })
-      .done(function (messages) {
-        console.log('success');
-        var insertHTML = '';
-        var html = buildHTML(messages);
-        var list = ".messages";
-        $(list).append(html);
-        send_scroll(list);
+      .done(function (data) {
 
+        console.log('success');
+        var html = buildHTML(data);
+        insertHTML.push(html);
+        console.log(insertHTML);
+        var list = ".messages";
+        $(list).append(insertHTML);
+        send_scroll(list);
       })
       .fail(function () {
         console.log('error');
       });
 
-  };
+    var insertHTML = [];
+  };　//reload function//
 
-
-
+  setInterval(reloadMessages, 10000); // reload request
 });
