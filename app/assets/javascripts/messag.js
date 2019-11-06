@@ -85,6 +85,12 @@ $(function () {
     })
       .done(function (messages) {
         console.log('success');
+        var insertHTML = '';
+        var html = buildHTML(messages);
+        var list = ".messages";
+        $(list).append(html);
+        send_scroll(list);
+
       })
       .fail(function () {
         console.log('error');
