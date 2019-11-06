@@ -24,6 +24,7 @@ $(function () {
     $(list).animate({ scrollTop: scrollHeight }, '1500');
   }
 
+  //submit event
   $('#new_message').submit(function (e) {
     e.preventDefault();
     var formData = new FormData(this);
@@ -50,6 +51,28 @@ $(function () {
       .always(function (data) {
         $('.form__submit').prop('disabled', false);
       });
+  }); //submit event>>
 
-  })
-})
+  var reloadMessages = function () {
+
+    var current_page = window.location.pathname;
+    var last_message_id = last_message_id = $(".message:last").data("message_id") || 0;
+
+    $.ajax({
+      url: current_page, //request url
+      type: 'GET',
+      dataType: 'json',
+      data: { id: last_message_id }
+    })
+      .done(function (messages) {
+        console.log('success');
+      })
+      .fail(function () {
+        console.log('error');
+      });
+
+  };
+
+
+
+});
