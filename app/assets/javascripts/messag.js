@@ -2,7 +2,7 @@ $(function () {
 
   function buildHTML(message) {
 
-    var data_id = `data_message-id=${message.id}`;
+    var data_id = `data-message-id=${message.id}`;
     var image = message.image ? `<img src= ${message.image}>` : "";
     var upper_info = `<div class="message__upper-info">
                         <p class="message__upper-info__talker">
@@ -20,7 +20,6 @@ $(function () {
                       <p class="message__text">${message.content}</p>
                     ${image}
                   </div > `;
-      return html;
 
     } else if (message.content) {
 
@@ -28,7 +27,6 @@ $(function () {
                     ${upper_info}
                       <p class="message__text">${message.content}</p>
                   </div > `;
-      return html;
 
     } else if (message.image) {
 
@@ -36,9 +34,9 @@ $(function () {
                     ${upper_info}
                     ${image}
                   </div > `;
-      return html;
-    };
 
+    };
+    return html;
   };
 
 
@@ -72,8 +70,9 @@ $(function () {
       .fail(function () {
         alert('メッセージが空欄です。')
       })
-      .always(function () {
+      .always(function (html) {
         $('.form__submit').prop('disabled', false); //disabled cancel
+        insertHTML.push(html);
       });
   }); //submit event//
 
@@ -81,32 +80,54 @@ $(function () {
   var reloadMessages = function () {
 
     var current_page = window.location.pathname;
-    var last_message_id = $(".message:last").data("data_message-id");
-    console.log(current_page);
-    console.log(last_message_id);
+    var last_message_id = $(".message:last").data("message-id") || 0;
 
-    $.ajax({
-      url: current_page, //request url
-      type: 'GET',
-      dataType: 'json',
-      data: { id: last_message_id }
-    })
-      .done(function (data) {
+    if (current_page.match(/\/groups\/\d+\/messages/)) {
 
-        console.log('success');
-        var html = buildHTML(data);
-        insertHTML.push(html);
-        console.log(insertHTML);
-        var list = ".messages";
-        $(list).append(insertHTML);
-        send_scroll(list);
+
+      console.log(current_page);
+      console.log(last_message_id);
+
+      $.ajax({
+        url: current_page, //request url
+        type: 'GET',
+        dataType: 'json',
+        data: { id: last_message_id }
       })
-      .fail(function () {
-        console.log('error');
-      });
+        .done(function (messages) {
 
-    var insertHTML = [];
-  };　//reload function//
+          if (messages.length !== 0) {
 
-  setInterval(reloadMessages, 10000); // reload request
+            console.log("messages.length !== 0");
+
+            messages.forEach(function (message) {
+
+              var html = buildHTML(message);
+              var list = ".messages";
+
+              console.log(html);
+
+              $('list').append(html);
+              send_scroll(list);
+
+            });
+
+          } else {
+            //current groups no messages
+            console.log("done else");
+
+          }
+
+        })
+        .fail(function () {
+          console.log('error');
+        });
+    } else {
+
+      console.log('not [/groups/id/messages/]. no reload. ');
+
+    }; //reload function//
+  };
+
+  setInterval(reloadMessages, 5000); // reload request
 });
