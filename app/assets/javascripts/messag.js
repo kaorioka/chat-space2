@@ -1,5 +1,12 @@
 $(function () {
 
+  // image Attach style
+  var imageAttach = $('i.fa.fa-picture-o.icon');
+  $('input[type=file]').change(function () {
+    imageAttach.addClass('active');
+  }); // image Attach style //
+
+  //html template
   function buildHTML(message) {
 
     var data_id = `data-message-id=${message.id}`;
@@ -37,15 +44,13 @@ $(function () {
 
     };
     return html;
-  };
+  }; //html template //
 
-
-  var insertHTML = [];
-
+  //scroll event
   function send_scroll(list) {
     var scrollHeight = $('#messages_area')[0].scrollHeight;
     $(list).animate({ scrollTop: scrollHeight }, '5000000000');
-  };
+  }; //scroll event//
 
   //submit event
   $('#new_message').submit(function (e) {
@@ -66,6 +71,7 @@ $(function () {
         $(list).append(html);
         send_scroll(list);
         $('#new_message')[0].reset(); //input reset
+        imageAttach.removeClass('active'); //remove image Attach style
       })
       .fail(function () {
         alert('メッセージが空欄です。')
@@ -84,7 +90,6 @@ $(function () {
 
     if (current_page.match(/\/groups\/\d+\/messages/)) {
 
-
       console.log(current_page);
       console.log(last_message_id);
 
@@ -98,33 +103,32 @@ $(function () {
 
           if (messages.length !== 0) {
 
-            console.log("messages.length !== 0");
-
             messages.forEach(function (message) {
 
-              var html = buildHTML(message);
+              var insertHTML = Array();
+              insertHTML.push(buildHTML(message));
+
+              insertHTML.forEach(function (message) {
+
+                insertHTMLs += insertHTML;
+
+              });
+
               var list = ".messages";
-
-              console.log(html);
-
-              $('list').append(html);
+              $('list').append(insertHTMLs);
               send_scroll(list);
 
             });
 
           } else {
-            //current groups no messages
-            console.log("done else");
-
+            //current page no messages
           }
 
         })
-        .fail(function () {
-          console.log('error');
+        .fail(function (json) {
+          alert('自動更新に失敗しました');
         });
     } else {
-
-      console.log('not [/groups/id/messages/]. no reload. ');
 
     }; //reload function//
   };
