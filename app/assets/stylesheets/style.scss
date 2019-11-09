@@ -12,23 +12,12 @@ a {
   text-decoration: none
 }
 
-//<<flash-box<<
-.flash-box {
-  color: $white;
-  font-size: 1rem;
-  font-weight: lighter;
-  text-align: center;
-  width: 100vw;
-
-  .notice {
-    background-color: $light-blue;
-  }
-
-  .alert {
-    background-color: $alert_orange;
-  }
+::-webkit-scrollbar {
+  display: none;
+  -webkit-appearance: none;
 }
-//>>flash-box>>
+
+
 
 //<<chat-side<<
 .chat-side {
@@ -51,17 +40,19 @@ a {
           justify-content: space-between;
           width: 100%;
           font-weight: bold;
+
+          &__menu {
+            display: flex;
+        
+            & li {
+              margin-left: 0.3rem;
+              font-size: initial;
+            }
+  
+      }
         }
     
-        &__box__menu {
-          display: flex;
-      
-          & li {
-            margin-left: 0.3rem;
-            font-size: initial;
-          }
-
-    }
+        
 
 
     }
@@ -103,7 +94,6 @@ a {
       display: flex;
       justify-content: space-between;
       border-bottom: solid 1px #eee;
-      overflow: scroll;
 
       & a {
         color: $light-blue;
