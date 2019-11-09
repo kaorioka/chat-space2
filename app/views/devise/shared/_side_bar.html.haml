@@ -13,7 +13,7 @@
               = fa_icon 'cog', class: 'icon'
     .groups
       - current_user.groups.order("created_at DESC").each do |group|
-        .group
+        .group{"data-group": {id: "#{group.id}"}}
           = link_to group_messages_path(group) do
             %p.group__group-name
               = group.name
