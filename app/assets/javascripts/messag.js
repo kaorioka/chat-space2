@@ -1,10 +1,24 @@
-$(function () {
+$(document).ready(function () {
+
+  // def current_page
+  const current_page = window.location.href;
+  // def current_page //
 
   // image Attach style
   var imageAttach = $('i.fa.fa-picture-o.icon');
   $('input[type=file]').change(function () {
     imageAttach.addClass('active');
   }); // image Attach style //
+
+  // side bar current
+  var current_group = $(".main-header__left-box__current-group").data("group-id");
+  $(".group").click(function () {
+    $(".group a").find(function () {
+      $(`[data-group-id=${current_group}]`).addClass("group__side_current");
+    });
+
+  }); // side bar current //
+
 
   //html template
   function buildHTML(message) {
@@ -49,7 +63,7 @@ $(function () {
   //scroll event
   function send_scroll(list) {
     var scrollHeight = $('#messages_area')[0].scrollHeight;
-    $(list).animate({ scrollTop: scrollHeight }, '5000000000');
+    $(list).animate({ scrollTop: scrollHeight }, '50000000000000000');
   }; //scroll event//
 
   //submit event
@@ -66,72 +80,78 @@ $(function () {
       contentType: false
     })
       .done(function (data) {
-        var html = buildHTML(data);
         var list = ".messages";
+        var html = buildHTML(data);
         $(list).append(html);
         send_scroll(list);
         $('#new_message')[0].reset(); //input reset
         imageAttach.removeClass('active'); //remove image Attach style
       })
       .fail(function () {
-        alert('メッセージが空欄です。')
+        alert('メッセージが空欄です。');
       })
-      .always(function (html) {
+      .always(function () {
         $('.form__submit').prop('disabled', false); //disabled cancel
-        insertHTML.push(html);
       });
   }); //submit event//
 
   //reload function
   var reloadMessages = function () {
 
-    var current_page = window.location.pathname;
-    var last_message_id = $(".message:last").data("message-id") || 0;
-
     if (current_page.match(/\/groups\/\d+\/messages/)) {
 
-      console.log(current_page);
-      console.log(last_message_id);
+      var last_message = $(".message:last").data("message-id") || 0;
+
+      console.log(`current_group：${current_group}`);
+      console.log(`last_message_id：${last_message}`);
 
       $.ajax({
-        url: current_page, //request url
+        url: "/api/messages", //request url
         type: 'GET',
-        dataType: 'json',
-        data: { id: last_message_id }
+        data: {
+          id: last_message,
+          group_id: current_group
+        },
+        dataType: 'json'
       })
-        .done(function (messages) {
+        .done(function (message) {
 
-          if (messages.length !== 0) {
+          console.log(`message：${message}`);
 
-            messages.forEach(function (message) {
-
-              var insertHTML = Array();
-              insertHTML.push(buildHTML(message));
-
-              insertHTML.forEach(function (message) {
-
-                insertHTMLs += insertHTML;
-
-              });
-
-              var list = ".messages";
-              $('list').append(insertHTMLs);
-              send_scroll(list);
-
+          if (message.length != 0) {
+            var insertHTML = '';
+            // console.log(insertHTML);
+            message.forEach(function (message) {
+              insertHTML += buildHTML(message);
             });
+            // console.log(insertHTML);
+            var list = ".messages";
+            $(list).append(insertHTML);
+            send_scroll(list);
 
           } else {
             //current page no messages
+            console.log("else");
           }
 
         })
-        .fail(function (json) {
+        .fail(function () {
           alert('自動更新に失敗しました');
         });
     } else {
-
+      // console.log("else");
+      clearInterval(reloadMessages);
     }; //reload function//
   };
 
-  setInterval(reloadMessages, 5000); // reload request
+  // reload request
+  window.addEventListener('load', function () {
+    setInterval(reloadMessages, 15000);
+  }); // reload request //
+
+
+
+
+
+
 });
