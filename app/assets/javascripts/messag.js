@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
   // def current_page
-  const current_page = window.location.href;
+  var current_page = window.location.href;
   // def current_page //
 
   // image Attach style
@@ -9,16 +9,6 @@ $(document).ready(function () {
   $('input[type=file]').change(function () {
     imageAttach.addClass('active');
   }); // image Attach style //
-
-  // side bar current
-  var current_group = $(".main-header__left-box__current-group").data("group-id");
-  $(".group").click(function () {
-    $(".group a").find(function () {
-      $(`[data-group-id=${current_group}]`).addClass("group__side_current");
-    });
-
-  }); // side bar current //
-
 
   //html template
   function buildHTML(message) {
@@ -102,36 +92,27 @@ $(document).ready(function () {
 
       var last_message = $(".message:last").data("message-id") || 0;
 
-      console.log(`current_group：${current_group}`);
-      console.log(`last_message_id：${last_message}`);
-
       $.ajax({
-        url: "/api/messages", //request url
+        url: "api/messages", //request url
         type: 'GET',
         data: {
-          id: last_message,
-          group_id: current_group
+          id: last_message
         },
         dataType: 'json'
       })
         .done(function (message) {
 
-          console.log(`message：${message}`);
-
-          if (message.length != 0) {
+          if (message != 0) {
             var insertHTML = '';
-            // console.log(insertHTML);
             message.forEach(function (message) {
               insertHTML += buildHTML(message);
             });
-            // console.log(insertHTML);
             var list = ".messages";
             $(list).append(insertHTML);
             send_scroll(list);
 
           } else {
             //current page no messages
-            console.log("else");
           }
 
         })
@@ -139,18 +120,14 @@ $(document).ready(function () {
           alert('自動更新に失敗しました');
         });
     } else {
-      // console.log("else");
       clearInterval(reloadMessages);
     }; //reload function//
   };
 
   // reload request
   window.addEventListener('load', function () {
-    setInterval(reloadMessages, 15000);
+    setInterval(reloadMessages, 5000);
   }); // reload request //
-
-
-
 
 
 
