@@ -88,7 +88,7 @@ $(function () {
       var name = $(this).data('userName');
       addGroupUsers(id, name); //add action
       $(this).parent('.chat-group-user').remove(); //delete action
-    });  //search_result.on('click')>>
+    });  //search_result.on('click')//
 
     add_user.on('click', '.chat-group-user__btn--remove', function () {
       var id = $(this).data('userId');

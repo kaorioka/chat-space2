@@ -1,97 +1,18 @@
-@import "variables";
-
 * {
   box-sizing: border-box;
 }
+
 .clearfix::after {
   content: "";
   display: block;
   clear: both
 }
-a {
-  text-decoration: none
+
+::-webkit-scrollbar {
+  display: none;
+  -webkit-appearance: none;
 }
 
-//<<flash-box<<
-.flash-box {
-  color: $white;
-  font-size: 1rem;
-  font-weight: lighter;
-  text-align: center;
-  width: 100vw;
-
-  .notice {
-    background-color: $light-blue;
-  }
-
-  .alert {
-    background-color: $alert_orange;
-  }
-}
-//>>flash-box>>
-
-//<<chat-side<<
-.chat-side {
-    width: 300px;
-    color: $white;
-    float: left;
-    & a {
-      color: $white;
-    }
-
-    .side-header {
-        background-color: $side_blue_dark;
-        height: 100px;
-        display: flex;
-        align-items: center;
-        padding: 0 20px;
-
-        &__box {
-          display: flex;
-          justify-content: space-between;
-          width: 100%;
-          font-weight: bold;
-        }
-    
-        &__box__menu {
-          display: flex;
-      
-          & li {
-            margin-left: 0.3rem;
-            font-size: initial;
-          }
-
-    }
-
-
-    }
-
-    .groups {
-      height: calc(100vh - 100px);
-      background-color: $side_blue_light;
-      padding: 20px 20px 0;
-      overflow: scroll;
-
-      .group {
-          margin-bottom: 40px;
-
-          &__group-name {
-            font-size: 15px;
-            margin-bottom: 5px;
-          }
-    
-          &__latest-message {
-            font-size: 11px;
-          }
-    
-      }
-      
-    }
-
-}
-//>>chat-side>>
-
-//<<chat-main<<
 .chat-main {
   width: calc(100vw - 300px);
   float: left;
@@ -102,7 +23,6 @@ a {
       display: flex;
       justify-content: space-between;
       border-bottom: solid 1px #eee;
-      overflow: scroll;
 
       & a {
         color: $light-blue;
@@ -226,6 +146,11 @@ a {
         top: 10px;
         right: 10px;
         cursor: pointer;
+
+        .icon.active{
+          color: $light-blue;
+        }
+
       }
 
     }
@@ -237,11 +162,3 @@ a {
   }
 
 }
-
-
-
-
-
-
-
-//>>chat-main>>
