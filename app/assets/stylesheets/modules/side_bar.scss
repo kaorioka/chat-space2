@@ -42,11 +42,9 @@ a {
   .groups {
     height: calc(100vh - 100px);
     background-color: $side_blue_light;
-    // padding: 20px 20px 0;
     overflow: scroll;
 
     .group {
-        // margin-bottom: 40px;
         padding: 20px;
 
         &__side_current{
