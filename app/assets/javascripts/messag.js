@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
   // def current_page
-  var current_page = window.location.href;
+  var current_page = window.location.pathname;
   // def current_page //
 
   // image Attach style
@@ -9,6 +9,7 @@ $(document).ready(function () {
   $('input[type=file]').change(function () {
     imageAttach.addClass('active');
   }); // image Attach style //
+
 
   //html template
   function buildHTML(message) {
@@ -128,7 +129,5 @@ $(document).ready(function () {
   window.addEventListener('load', function () {
     setInterval(reloadMessages, 5000);
   }); // reload request //
-
-
 
 });
