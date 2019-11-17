@@ -49,6 +49,7 @@ test:
 #
 production:
   <<: *default
+  adapter: mysql2
   database: chat-space2_production
   username: root
   password: <%= ENV['chat-spece'] %>
