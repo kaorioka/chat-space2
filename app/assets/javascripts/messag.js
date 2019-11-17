@@ -61,6 +61,7 @@ $(document).ready(function () {
   $('#new_message').submit(function (e) {
     e.preventDefault();
     var formData = new FormData(this);
+    console.log("aaa")
     var url = $(this).attr('action'); //request url
     $.ajax({
       url: url,
@@ -69,15 +70,14 @@ $(document).ready(function () {
       dataType: 'json',
       processData: false,
       contentType: false
+    }).done(function (data) {
+      var list = ".messages";
+      var html = buildHTML(data);
+      $(list).append(html);
+      send_scroll(list);
+      $('#new_message')[0].reset(); //input reset
+      imageAttach.removeClass('active'); //remove image Attach style
     })
-      .done(function (data) {
-        var list = ".messages";
-        var html = buildHTML(data);
-        $(list).append(html);
-        send_scroll(list);
-        $('#new_message')[0].reset(); //input reset
-        imageAttach.removeClass('active'); //remove image Attach style
-      })
       .fail(function () {
         alert('メッセージが空欄です。');
       })
