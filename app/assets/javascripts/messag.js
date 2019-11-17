@@ -13,43 +13,24 @@ $(document).ready(function () {
 
   //html template
   function buildHTML(message) {
-
     var data_id = `data-message-id=${message.id}`;
     var image = message.image ? `<img src= ${message.image}>` : "";
-    var upper_info = `<div class="message__upper-info">
-                        <p class="message__upper-info__talker">
-                        ${message.user_name}
-                        </p >
-                        <p class="message__upper-info__date">
-                          ${message.created_at}
-                        </p>
-                      </div >`;
-
-    if (message.content && message.image) {
-
-      var html = `<div class="message" ${data_id}>
-                    ${upper_info}
-                      <p class="message__text">${message.content}</p>
-                    ${image}
+    var html = `<div class="message" ${data_id}>
+                  <div class="message__upper-info">
+                    <p class="message__upper-info__talker">
+                      ${message.user_name}
+                    </p >
+                    <p class="message__upper-info__date">
+                      ${message.created_at}
+                    </p>
+                  </div >
+                    <p class="message__text">${message.content}</p>
+                    <p class="lower-message__content">
+                    ${ image}
+                    </p>
                   </div > `;
-
-    } else if (message.content) {
-
-      var html = `<div class="message" ${data_id}>
-                    ${upper_info}
-                      <p class="message__text">${message.content}</p>
-                  </div > `;
-
-    } else if (message.image) {
-
-      var html = `<div class="message" ${data_id}>
-                    ${upper_info}
-                    ${image}
-                  </div > `;
-
-    };
     return html;
-  }; //html template //
+  };//html template //
 
   //scroll event
   function send_scroll(list) {
