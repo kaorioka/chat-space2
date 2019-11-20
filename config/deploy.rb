@@ -25,7 +25,7 @@ set :linked_files, %w{ config/secrets.yml }
 
 # どの公開鍵を利用してデプロイするか
 set :ssh_options, auth_methods: ['publickey'],
-                  keys: ['~/.ssh/chat-space2.pem）>'] 
+                  keys: ['~/.ssh/chat-space2.pem'] 
 
 # プロセス番号を記載したファイルの場所
 set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
